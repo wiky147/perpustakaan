@@ -1,0 +1,96 @@
+<template>
+  <Layout>
+    <v-container grid-list-md>
+      <v-layout row wrap>
+        <v-flex xs12 mb-3>
+          <v-card color="transparent" class flat>
+            <v-card-text class="pa-0 headline">Daftar Buku</v-card-text>
+          </v-card>
+        </v-flex>
+        <v-flex xs12>
+          <v-card>
+            <v-flex xs12 pa-3>
+              <v-layout class="py-0 my-0">
+                <v-flex xs12 md5 class="pr-3">
+                  <v-text-field
+                    class="search-field"
+                    label="Cari"
+                    append-icon="mdi-magnify"
+                    single-line
+                    solo
+                    clearable
+                    hide-details
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 md6>
+                  <v-spacer></v-spacer>
+                </v-flex>
+                <v-flex xs12 md2 offset-md3>
+                  <v-btn color="primary" to="/buku/add">Tambah</v-btn>
+                </v-flex>
+              </v-layout>
+            </v-flex>
+            <v-data-table :headers="headers" :items="item" class="elevation-1">
+              <template v-slot:item.cover="{ item }">
+                <img src="../../../assets/logo.svg" alt="Perpustakaan" width="20" height="20" />
+              </template>
+              <template v-slot:item.action="{ item }">
+                <v-icon class="mr-3" @click="editItem(item)">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+              </template>
+              <template v-slot:no-data>
+                <v-btn color="primary" @click="initialize">Reset</v-btn>
+              </template>
+            </v-data-table>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </Layout>
+</template>
+
+<script>
+import Layout from "../../layout/main";
+export default {
+  components: { Layout },
+  data() {
+    return {
+      dialog: false,
+      headers: [
+        { text: "Kode Buku", align: "center", sortable: false, value: "code" },
+        {
+          text: "Penerbit",
+          align: "center",
+          sortable: false,
+          value: "publisher"
+        },
+        { text: "Judul", align: "center", sortable: false, value: "title" },
+        {
+          text: "Pengarang",
+          align: "center",
+          sortable: false,
+          value: "author"
+        },
+        { text: "Cover", align: "center", sortable: false, value: "cover" },
+        { text: "Harga", align: "center", sortable: false, value: "prices" },
+        { text: "Jumlah", align: "center", sortable: false, value: "stock" },
+        { text: "Action", align: "center", sortable: false, value: "action" }
+      ],
+      item: [
+        {
+          code: "BK0001",
+          publisher: "Elex Media",
+          title: "Super User",
+          author: "Super Human",
+          prices: "1000000",
+          stock: "30"
+        }
+      ]
+    };
+  }
+};
+</script>
+
+<style>
+@import url(../../../design/style.css);
+</style>
